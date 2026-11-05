@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Farm - Kelola Data</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-green: #198754; /* Hijau Hutan */
+            --light-green: #146c43;   /* Hijau Daun */
+            --bg-soft: #f1f8e9;       /* Hijau Muda Pucat */
+        }
+
+        body {
+            background-color: var(--bg-soft);
+            font-family: 'Poppins', sans-serif;
+            color: #4a4a4a;
+        }
+
+        /* Navbar Hijau Segar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+        .navbar-brand {
+            font-weight: 600;
+            color: #fff !important;
+            letter-spacing: 1px;
+        }
+
+        /* Kartu Melayang (Shadow) */
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Ini efek bayangannya */
+            overflow: hidden;
+            transition: transform 0.3s;
+            background-color: white;
+        }
+        
+        .card-header {
+            background-color: #fff;
+            border-bottom: 2px solid #e8f5e9;
+            padding: 20px;
+        }
+
+        .card-header h5 {
+            color: var(--primary-green);
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Input Form */
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 1px solid #dcedc8;
+            padding: 12px;
+            background-color: #ffffff;
+        }
+        .form-control:focus {
+            border-color: var(--light-green);
+            box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        }
+
+        /* Tombol Hijau */
+        .btn-farm {
+            background: linear-gradient(to right, var(--primary-green), var(--light-green));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-farm:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+        }
+        
+        .btn-warning-custom {
+            background: linear-gradient(to right, #fbc02d, #ffa000);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 600;
+        }
+
+        /* Tabel Hijau */
+        .table-custom thead {
+            background-color: var(--primary-green);
+            color: white;
+        }
+        .table-custom th {
+            font-weight: 500;
+            border: none;
+            padding: 15px;
+            background-color: var(--primary-green);
+            color: white;
+        }
+        .table-custom td {
+            padding: 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f8e9;
+        }
+        
+        .img-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #e8f5e9;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .badge-kategori {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            font-weight: 600;
+            border: 1px solid #c8e6c9;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4 sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-tree-fill"></i> Admin Peternakan
+        </a>
+        
+        <div class="d-flex gap-2"> <a href="halaman_log.php" class="btn btn-warning btn-sm rounded-pill px-4 d-flex align-items-center gap-2">
+                <i class="bi bi-clock-history"></i> <span>Riwayat Log</span>
+            </a>
+
+            <a href="koleksi.html" class="btn btn-outline-light btn-sm rounded-pill px-4 d-flex align-items-center gap-2">
+                <i class="bi bi-eye"></i> 
+                <span>Lihat Website</span>
+            </a>
+            
+        </div>
+    </div>
+</nav>
+
+    <div class="container pb-5">
+        <div class="row g-4">
+            
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 id="judul-form"><i class="bi bi-plus-square-dotted"></i> Input Data</h5>
+                        <button onclick="resetForm()" class="btn btn-sm btn-outline-danger" id="btn-batal" style="display:none;">Batal Edit</button>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="simpan_produk.php" method="POST" enctype="multipart/form-data">
+
+                            
+                            <input type="hidden" name="id" id="id_hewan">
+                            <input type="hidden" name="aksi" id="form_aksi" value="tambah">
+
+                            <div class="mb-3">
+                                <label class="form-label small text-success fw-bold">NAMA PRODUK</label>
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Contoh: Lele Sangkuriang" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <label class="form-label small text-success fw-bold">HARGA (Rp)</label>
+                                    <input type="number" name="harga" id="harga" class="form-control" placeholder="0" required>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label class="form-label small text-success fw-bold">STOK</label>
+                                    <input type="number" name="stok" id="stok" class="form-control" placeholder="0" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small text-success fw-bold">KATEGORI</label>
+                                <select name="kategori" id="kategori" class="form-select">
+                                    <option value="Sapi">🐮 Sapi</option>
+                                    <option value="Kambing">🐐 Kambing</option>
+                                    <option value="Ayam">🐓 Ayam</option>
+                                    <option value="Lele">🐟 Lele</option>
+                                    <option value="Telur">🥚 Telur</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small text-success fw-bold">LINK GAMBAR</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-success"><i class="bi bi-link"></i></span>
+                                    <input type="text" name="gambar" id="gambar" class="form-control border-start-0" placeholder="https://..." required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small text-success fw-bold">KETERANGAN</label>
+                                <textarea name="deskripsi" id="deskripsi" class="form-control" rows="3" placeholder="Kondisi kesehatan, bobot, dll..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-farm w-100 mt-2 shadow-sm" id="btn-submit">
+                                <i class="bi bi-save"></i> Simpan Data
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="bi bi-table"></i> Stok Gudang</h5>
+                        <span class="badge bg-success rounded-pill px-3 py-2" id="total-data">Loading...</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th width="15%" class="text-center">Gambar</th>
+                                        <th>Nama & Kategori</th>
+                                        <th>Harga</th>
+                                        <th class="text-end pe-4">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabel-hewan">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <form id="form-hapus" action="simpan_produk.php" method="POST" style="display:none;">
+        <input type="hidden" name="aksi" value="hapus">
+        <input type="hidden" name="id_hapus" id="id_hapus">
+    </form>
+
+    <script>
+        // Ambil data dari MySQL
+fetch('api_products.php')
+    .then(res => res.json())
+    .then(data => {
+        const tabel = document.getElementById('tabel-hewan');
+        document.getElementById('total-data').innerText = data.length + ' Item';
+        tabel.innerHTML = '';
+
+        data.forEach(h => {
+            let hargaIndo = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(h.harga);
+            
+            // h.id adalah kolom primary key di tabel MySQL kamu
+            let jsonStr = JSON.stringify(h).replace(/"/g, '&quot;');
+
+            tabel.innerHTML += `
+                <tr>
+                    <td class="text-center"><img src="${h.gambar}" class="img-thumb"></td>
+                    <td>
+                        <div class="fw-bold">${h.nama}</div>
+                        <span class="badge-kategori">${h.kategori}</span>
+                        <small class="text-muted">(${h.stok} stok)</small>
+                    </td>
+                    <td class="text-success fw-bold">${hargaIndo}</td>
+                    <td class="text-end pe-4">
+                        <button onclick="editData(${jsonStr})" class="btn btn-warning btn-sm text-white"><i class="bi bi-pencil-fill"></i></button>
+                        <button onclick="hapusData(${h.id}, '${h.nama}')" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
+                    </td>
+                </tr>`;
+        });
+    });
+
+// Fungsi Edit
+function editData(data) {
+    document.getElementById('judul-form').innerText = "Edit Data";
+    document.getElementById('form_aksi').value = "edit";
+    document.getElementById('id_hewan').value = data.id; // Pakai data.id
+    document.getElementById('nama').value = data.nama;
+    document.getElementById('harga').value = data.harga;
+    document.getElementById('stok').value = data.stok;
+    document.getElementById('kategori').value = data.kategori;
+    document.getElementById('gambar').value = data.gambar;
+    document.getElementById('deskripsi').value = data.deskripsi;
+    
+    document.getElementById('btn-submit').innerText = "Update Data";
+    document.getElementById('btn-submit').className = "btn btn-warning w-100 mt-2";
+    document.getElementById('btn-batal').style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Fungsi Hapus
+function hapusData(id, nama) {
+    if(confirm('Yakin hapus ' + nama + '?')) {
+        document.getElementById('id_hapus').value = id;
+        document.getElementById('form-hapus').submit();
+    }
+}
+    </script>
+
+</body>
+</html>

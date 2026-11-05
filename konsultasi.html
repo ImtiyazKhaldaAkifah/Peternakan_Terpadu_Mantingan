@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Konseling Gratis Peternakan | Mantingan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="konsultasi.css"> 
+</head>
+<body>
+
+    <nav class="navbar fixed-top navbar-expand-lg bg-white shadow-sm">
+        <div class="container nav-container">
+            <a href="index.html" class="navbar-brand d-flex align-items-center gap-2">
+                <img src="logo bulet.png" alt="Logo" class="navbar-logo-img" width="40" onerror="this.style.display='none'">
+                <span class="brand-name fw-bold text-success">Peternakan Terpadu Mantingan</span>
+            </a>
+            <div class="hamburger d-lg-none">
+                <i class='bx bx-menu fs-1'></i>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav nav-menu d-flex gap-3">
+                    <li class="nav-item"><a href="index.html" class="nav-link text-dark">Tentang</a></li>
+                    <li class="nav-item"><a href="fitur.html" class="nav-link text-dark">Sistem</a></li>
+                    <li class="nav-item"><a href="index.html#komoditas-unggulan" class="nav-link text-dark">Komoditas</a></li>
+                    <li class="nav-item"><a href="konsultasi.html" class="nav-link active text-success fw-bold">Konsultasi</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container text-center text-white reveal-up">
+            <h1 class="fw-bold">Konsultasi Peternakan</h1>
+            <p>Analisis potensi lahan & modal Anda secara otomatis di sini</p>
+        </div>
+    </header>
+
+    <div class="container content-wrapper">
+      <div class="card shadow-lg main-card reveal-up delay-2">
+        <div class="card-header text-center">
+          <h3 class="mb-0"><i class='bx bx-notepad'></i> Form Cek Cocok Ternak</h3>
+        </div>
+        <div class="card-body p-4 p-md-5">
+          <p class="text-muted text-center mb-5">
+            Isi data di bawah ini. AI kami akan menghitung kapasitas ternak yang cocok dan memberikan strategi awalnya.
+          </p>
+          
+          <form id="formKonseling" method="POST" action="konsultasi.php">
+
+            
+            <div class="form-section reveal-up delay-3">
+              <h5 class="section-heading text-success"><i class='bx bx-user'></i> Data Diri</h5>
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <label class="form-label">Nama Lengkap</label>
+                      <input type="text" class="form-control" id="nama" name="nama_lengkap" placeholder="Contoh: Budi Santoso" required>
+
+                  </div>
+                  <div class="col-md-6 mb-3">
+                      <label class="form-label">Nomor WhatsApp</label>
+                      <input type="tel" class="form-control" id="whatsapp" name="whatsapp" placeholder="0812..." required>
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-section reveal-up delay-4 mt-4">
+              <h5 class="section-heading text-success"><i class='bx bx-line-chart'></i> Rencana Usaha</h5>
+              
+              <div class="row">
+                  <div class="col-12 mb-3">
+                    <label class="form-label fw-bold">Rencana Ternak Apa?</label>
+                    <select class="form-select" id="jenis_ternak" name="jenis_ternak" required>
+                      <option value="">-- Pilih Jenis --</option>
+                      <option value="lele">Ikan Lele (Kolam Terpal/Tanah)</option>
+                      <option value="ayam_petelur">Ayam Petelur (Produksi Telur)</option>
+                      <option value="sapi">Sapi (Penggemukan/Fattening)</option>
+                      <option value="kambing">Kambing / Domba</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Estimasi Modal Awal</label>
+                    <select class="form-select" id="modal" name="modal_awal" required>
+                      <option value="">-- Pilih Budget --</option>
+                      <option value="kecil">Kecil (Di bawah 5 Juta)</option>
+                      <option value="sedang">Sedang (5 - 20 Juta)</option>
+                      <option value="besar">Besar (Di atas 20 Juta)</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-md-6 mb-3">
+                      <label class="form-label">Ukuran Lahan (Meter Persegi)</label>
+                      <input type="number" class="form-control" id="ukuran_lahan" name="luas_lahan" placeholder="Contoh: 50" required>
+                  </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 btn-submit mt-4 fw-bold p-3">
+                <i class='bx bx-search-alt'></i> ANALISIS SEKARANG
+            </button>
+          </form>
+
+          <div class="result-box mt-5" id="hasil" style="display: none;">
+            <div class="text-center result-header p-3 bg-success text-white rounded-top">
+                <h5 class="mb-0">HASIL ANALISIS AI</h5>
+            </div>
+            <div class="p-4 border border-success border-top-0 rounded-bottom">
+                <div class="text-center mb-4">
+                  <span class="badge bg-warning text-dark mb-2" id="kode_profil">PELUANG USAHA</span>
+                  <h3 class="fw-bold text-dark" id="nama_profil">Nama Profil</h3>
+                </div>
+                
+                <div class="alert alert-light border-start border-success border-4 shadow-sm" role="alert">
+                    <i class='bx bxs-quote-alt-left text-success fs-4'></i><br>
+                    <span id="deskripsi_profil" class="fst-italic text-dark"></span>
+                </div>
+
+                <div class="row mt-4 g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded border">
+                            <h6 class="fw-bold"><i class='bx bx-bulb text-warning'></i> Strategi Pakan</h6>
+                            <p id="rekomendasi_ternak" class="mb-0 small"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                         <div class="p-3 bg-light rounded border">
+                            <h6 class="fw-bold"><i class='bx bx-wallet text-success'></i> Kapasitas Lahan</h6>
+                            <p id="estimasi_modal" class="mb-0 small"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mt-4 fw-bold text-success"><i class='bx bx-list-check'></i> Langkah Awal Solusi:</h6>
+                <ol id="langkah_memulai" class="list-group list-group-numbered list-group-flush mb-3"></ol>
+
+                <div class="accordion mt-4" id="accordionResult">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTips">
+                                <i class='bx bxs-graduation me-2'></i> Tips Perawatan
+                            </button>
+                        </h2>
+                        <div id="collapseTips" class="accordion-collapse collapse" data-bs-parent="#accordionResult">
+                            <div class="accordion-body" id="tips_edukasi"></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRisiko">
+                                <i class='bx bxs-error-circle me-2'></i> Risiko & Solusi
+                            </button>
+                        </h2>
+                        <div id="collapseRisiko" class="accordion-collapse collapse" data-bs-parent="#accordionResult">
+                            <div class="accordion-body text-danger" id="risiko"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4 d-grid gap-2">
+                    <button class="btn btn-success fw-bold" onclick="konsultasiKeWA()">
+                        <i class='bx bxl-whatsapp'></i> KONSULTASI LANJUT VIA WA
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="window.print()">
+                        <i class='bx bx-printer'></i> Simpan Hasil
+                    </button>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-white border-top pt-5 pb-4 mt-5">
+    <div class="container">
+        <div class="row g-4 justify-content-between">
+            
+            <div class="col-md-4">
+                <h5 class="fw-bold text-success mb-3">
+                    <i class='bx bxs-leaf'></i> Peternakan Terpadu Mantingan
+                </h5>
+                <p class="text-muted small">
+                    Mitra terpercaya untuk kebutuhan pangan hewani yang higienis, halal, dan berkualitas premium. Menggabungkan teknologi modern dengan perawatan alami.
+                </p>
+                <div class="d-flex gap-3 mt-3">
+                    <a href="#" class="text-secondary fs-4"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" class="text-secondary fs-4"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#" class="text-secondary fs-4"><i class='bx bxl-youtube'></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <h6 class="fw-bold text-dark mb-3">Akses Cepat</h6>
+                <ul class="list-unstyled d-flex flex-column gap-2">
+                    <li><a href="index.html" class="text-decoration-none text-muted footer-link">Beranda</a></li>
+                    <li><a href="fitur.html" class="text-decoration-none text-muted footer-link">Fitur Unggulan</a></li>
+                    <li><a href="koleksi.html" class="text-decoration-none text-muted footer-link">Daftar Komoditas</a></li>
+                    <li><a href="konsultasi.html" class="text-decoration-none text-muted footer-link">Konsultasi Gratis</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h6 class="fw-bold text-dark mb-3">Hubungi Kami</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3">
+                    <li class="d-flex gap-2 align-items-start text-muted small">
+                        <i class='bx bxs-map text-success fs-5'></i>
+                        <span>Jl. Raya Mantingan No. 12, Ngawi, Jawa Timur<br>(Tengah Persawahan)</span>
+                    </li>
+                    <li class="d-flex gap-2 align-items-center text-muted small">
+                        <i class='bx bxl-whatsapp text-success fs-5'></i>
+                        <span>+62 82325875785 (Admin)</span>
+                    </li>
+                    <li class="d-flex gap-2 align-items-center text-muted small">
+                        <i class='bx bx-envelope text-success fs-5'></i>
+                        <span>tanya@peternakanmantingan.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-top mt-5 pt-3 text-center">
+            <p class="text-muted small mb-0">
+                &copy; 2026 <b>Peternakan Terpadu Mantingan</b>. All Rights Reserved.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="konsultasi.js"></script>
+
+</body>
+</html>

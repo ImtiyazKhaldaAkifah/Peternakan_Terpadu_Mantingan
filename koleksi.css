@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary: #198754;
+  --dark-green: #146c43;
+  --text-dark: #333;
+  --bg-light: #f4f7f6;
+}
+
+body {
+  background-color: var(--bg-light);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+}
+
+/* --- Navbar Styles --- */
+.navbar {
+    transition: all 0.4s ease;
+    padding: 15px 0;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 10px;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.navbar-logo-img { height: 40px; }
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    gap: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative; /* Penting buat garis bawah */
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+/* --- BAGIAN INI SUDAH DIPERBAIKI (Ada Garis Bawah) --- */
+.nav-link.active {
+    color: var(--primary) !important;
+    font-weight: 700;
+    border-bottom: 3px solid var(--primary); /* Garis Hijau */
+    padding-bottom: 5px; /* Jarak garis ke tulisan */
+}
+
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+/* Mobile Nav */
+@media screen and (max-width: 768px) {
+    .hamburger { display: block; }
+    .nav-menu {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        display: none; 
+    }
+    .nav-menu.active { display: flex; }
+    .nav-menu li { margin: 10px 0; }
+}
+
+/* --- Header & Layout --- */
+.header-section {
+    padding-top: 100px; 
+    padding-bottom: 40px;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* --- Product Cards --- */
+.product-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.card-img-wrapper {
+    position: relative;
+    height: 220px; /* Tinggi Fix */
+    overflow: hidden;
+    width: 100%;
+}
+
+/* CSS ANTI GEPENG (CARD) */
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Gambar menyesuaikan kotak (crop otomatis) */
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .card-img-wrapper img {
+    transform: scale(1.1);
+}
+
+.stok-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.price {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.btn-detail-view {
+    margin-top: auto; 
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-detail-view:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1050;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content-box {
+    background: white;
+    width: 100%;
+    max-width: 900px; /* Diperlebar sedikit biar lega */
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: row; /* Default layout: Samping-sampingan */
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #888;
+    z-index: 10;
+    transition: color 0.3s;
+    background: rgba(255,255,255,0.8); /* Biar keliatan kalau background gambar gelap */
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.close-modal:hover { color: #000; background: white; }
+
+.modal-body-layout {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.modal-image {
+    flex: 1; /* Ambil 1 bagian lebar */
+    min-width: 300px;
+    height: auto; /* Tinggi menyesuaikan */
+    position: relative;
+}
+
+/* CSS ANTI GEPENG (MODAL) */
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 350px; /* Minimal tinggi biar ga pendek bgt */
+    object-fit: cover; /* Kunci anti gepeng */
+    display: block;
+}
+
+.modal-details {
+    flex: 1.5; /* Tulisan lebih lebar dari gambar */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Modal Responsive HP */
+@media screen and (max-width: 768px) {
+    .modal-content-box {
+        flex-direction: column; /* Gambar di atas, tulisan di bawah */
+        max-width: 100%;
+    }
+    
+    .modal-image { 
+        width: 100%;
+        height: 250px; /* Tinggi fix buat HP */
+        flex: none;
+    }
+
+    .modal-details { 
+        padding: 20px; 
+        flex: none;
+    }
+}
