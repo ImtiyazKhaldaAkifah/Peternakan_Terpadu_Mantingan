@@ -1,4 +1,3 @@
-<!-- Ganti tulisan di dalam < > dengan data Anda -->
 <div align="center">
   <h1>🐄 Peternakan Terpadu Mantingan</h1>
   <p><i>Sistem Informasi dan Profil Peternakan Modern Berbasis Web</i></p>
@@ -23,13 +22,6 @@
 - [x] **Formulir Konsultasi**: Pengunjung dapat mengirimkan pertanyaan yang akan tersimpan aman di database.
 - [x] **Panel Admin**: Halaman khusus untuk mengelola data produk dan melihat pesan masuk dari pengunjung.
 - [x] **Responsive Design**: Tampilan optimal baik diakses melalui PC, tablet, maupun smartphone.
-
-## 📸 Tampilan Website
-<!-- GANTI LINK DI BAWAH INI DENGAN LINK SCREENSHOT ASLI ANDA -->
-<!-- Tips: Upload screenshot ke GitHub Issues atau folder /assets, lalu copy link imagenya -->
-| Halaman Utama | Koleksi Ternak |
-| :---: | :---: |
-| ![Homepage](https://via.placeholder.com/600x300?text=Screenshot+Halaman+Utama) | ![Koleksi](https://via.placeholder.com/600x300?text=Screenshot+Koleksi) |
 
 ## 🛠️ Tech Stack
 | Kategori | Teknologi |
